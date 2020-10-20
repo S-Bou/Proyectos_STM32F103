@@ -1,0 +1,23 @@
+--cpu Cortex-M3
+"arm4servos\startup_stm32f103xe.o"
+"arm4servos\main.o"
+"arm4servos\stm32f1xx_it.o"
+"arm4servos\stm32f1xx_hal_msp.o"
+"arm4servos\stm32f1xx_hal_gpio_ex.o"
+"arm4servos\stm32f1xx_hal_tim.o"
+"arm4servos\stm32f1xx_hal_tim_ex.o"
+"arm4servos\stm32f1xx_hal.o"
+"arm4servos\stm32f1xx_hal_rcc.o"
+"arm4servos\stm32f1xx_hal_rcc_ex.o"
+"arm4servos\stm32f1xx_hal_gpio.o"
+"arm4servos\stm32f1xx_hal_dma.o"
+"arm4servos\stm32f1xx_hal_cortex.o"
+"arm4servos\stm32f1xx_hal_pwr.o"
+"arm4servos\stm32f1xx_hal_flash.o"
+"arm4servos\stm32f1xx_hal_flash_ex.o"
+"arm4servos\stm32f1xx_hal_exti.o"
+"arm4servos\system_stm32f1xx.o"
+--library_type=microlib --strict --scatter "Arm4Servos\Arm4Servos.sct"
+--summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list "Arm4Servos.map" -o Arm4Servos\Arm4Servos.axf
