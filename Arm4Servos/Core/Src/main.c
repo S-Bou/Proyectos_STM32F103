@@ -89,6 +89,7 @@ int main(void)
   MX_GPIO_Init();
   MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
+	  HAL_GPIO_WritePin(USER_LED_B11_GPIO_Port, USER_LED_B11_Pin, GPIO_PIN_RESET);
 	HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
 	HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_2);
 	HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_3);
@@ -102,6 +103,11 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+//		if(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_10))
+//		{
+//		HAL_GPIO_TogglePin(USER_LED_B11_GPIO_Port, USER_LED_B11_Pin);
+//		HAL_Delay(500);
+//		}
 		htim2.Instance->CCR1 = 50;
   }
   /* USER CODE END 3 */
@@ -223,10 +229,32 @@ static void MX_TIM2_Init(void)
   */
 static void MX_GPIO_Init(void)
 {
+  GPIO_InitTypeDef GPIO_InitStruct = {0};
 
   /* GPIO Ports Clock Enable */
   __HAL_RCC_GPIOD_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
+  __HAL_RCC_GPIOB_CLK_ENABLE();
+
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(USER_LED_B11_GPIO_Port, USER_LED_B11_Pin, GPIO_PIN_RESET);
+
+  /*Configure GPIO pin : USER_LED_B11_Pin */
+  GPIO_InitStruct.Pin = USER_LED_B11_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(USER_LED_B11_GPIO_Port, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : PA10 PA11 PA12 PA13 */
+  GPIO_InitStruct.Pin = GPIO_PIN_10|GPIO_PIN_11|GPIO_PIN_12|GPIO_PIN_13;
+  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+  /* EXTI interrupt init*/
+  HAL_NVIC_SetPriority(EXTI15_10_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
 
 }
 
