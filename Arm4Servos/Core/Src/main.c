@@ -89,7 +89,7 @@ int main(void)
   MX_GPIO_Init();
   MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
-	  HAL_GPIO_WritePin(USER_LED_B11_GPIO_Port, USER_LED_B11_Pin, GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(USER_LED_B11_GPIO_Port, USER_LED_B11_Pin, GPIO_PIN_RESET);
 	HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
 	HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_2);
 	HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_3);
@@ -108,7 +108,11 @@ int main(void)
 //		HAL_GPIO_TogglePin(USER_LED_B11_GPIO_Port, USER_LED_B11_Pin);
 //		HAL_Delay(500);
 //		}
-		htim2.Instance->CCR1 = 50;
+		
+		HAL_GPIO_TogglePin(USER_LED_B11_GPIO_Port, USER_LED_B11_Pin);
+		HAL_Delay(100);
+		
+//		htim2.Instance->CCR1 = 50;
   }
   /* USER CODE END 3 */
 }
